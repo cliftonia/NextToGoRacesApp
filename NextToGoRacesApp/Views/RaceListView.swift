@@ -85,7 +85,6 @@ struct RaceListView: View {
 
 #Preview("With Sample Races") {
     /// Displays `RaceListView` populated with sample race data.
-
     let sampleHorse = Race(
         id: "horse1",
         meetingName: "Horse Meeting",

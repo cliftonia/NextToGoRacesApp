@@ -10,8 +10,11 @@ import Foundation
 @testable import NextToGoRacesApp
 
 struct RaceServiceTests {
+    /// This includes verifying that:
+    /// - Race summaries are properly parsed
+    /// - Meeting names are correctly extracted
     @Test
-    func testRaceResponseDecoding() throws {
+    func raceResponseDecoding() throws {
         let jsonString = """
         {
           "status": 200,
@@ -43,8 +46,12 @@ struct RaceServiceTests {
         #expect(raceResponse.data.raceSummaries["1"]?.meetingName == "Test Meeting")
     }
 
+    /// Tests that races are ordered correctly based on the next_to_go_ids array.
+    /// This verifies that:
+    /// - Races maintain the order specified by next_to_go_ids
+    /// - The ordering is independent of the raceSummaries dictionary order
     @Test
-    func testRaceOrdering() throws {
+    func raceOrdering() throws {
         let jsonString = """
         {
           "status": 200,

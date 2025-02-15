@@ -10,8 +10,12 @@ import SwiftUI
 @testable import NextToGoRacesApp
 
 struct RaceTests {
+    /// Tests countdown formatting for a future race.
+    /// Verifies that:
+    /// - A race starting in 2 minutes shows "02:00"
+    /// - Minutes and seconds are properly formatted with leading zeros
     @Test
-    func testRaceCountdown() {
+    func raceCountdown() {
         // Given: a race starting 2 minutes from now.
         let now: Date = Date()
         let startDate: Date = now.addingTimeInterval(120)
@@ -23,16 +27,17 @@ struct RaceTests {
             categoryId: RaceCategory.horse.rawValue
         )
 
-        // When: computing the countdown.
         let countdown = race.countdown(from: now)
 
-        // Then: countdown should be "02:00".
         #expect(countdown == "02:00")
     }
 
+    /// Tests countdown display for a race that has already started.
+    /// Verifies that:
+    /// - A race that started in the past shows "Started"
+    /// - Negative time intervals are handled correctly
     @Test
-    func testRaceAlreadyStartedCountdown() {
-        // Given: a race that already started.
+    func raceAlreadyStartedCountdown() {
         let now: Date = Date()
         let startDate: Date = now.addingTimeInterval(-10)
         let race = Race(
@@ -43,10 +48,8 @@ struct RaceTests {
             categoryId: RaceCategory.horse.rawValue
         )
 
-        // When: computing the countdown.
         let countdown = race.countdown(from: now)
 
-        // Then: countdown should indicate the race has started.
         #expect(countdown == "Started")
     }
 }
