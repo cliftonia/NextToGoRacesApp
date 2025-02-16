@@ -38,6 +38,13 @@ https://api.neds.com.au/rest/v1/racing/?method=nextraces&count=10
 - **Views:** SwiftUI-based UI components.
 - **Tests:** Implements **unit tests** and **UI tests** using **Swift Testing** and **XCTest**.
 
+### Screenshots
+![image](https://github.com/user-attachments/assets/418035d4-974b-46b9-aa06-1694a3d19962)
+![image](https://github.com/user-attachments/assets/29f232b8-1ff2-479e-83ec-2106846c917a)
+![image](https://github.com/user-attachments/assets/4ab1a758-048b-4f7a-a1fc-719e26a9aaf4)
+![image](https://github.com/user-attachments/assets/f1253ee9-38ac-47d9-896f-eb88972b360f)
+![image](https://github.com/user-attachments/assets/e9b80cea-7393-434c-88a5-5f04955d0ed9)
+
 ## Dependencies
 - **Swift Package Manager (SPM)**
 - **No third-party dependencies used.**
