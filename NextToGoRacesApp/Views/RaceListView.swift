@@ -70,22 +70,22 @@ struct RaceListView: View {
 
 #Preview("Loading State") {
     /// Displays `RaceListView` when the races are still loading.
-    let mockService = MockRaceService(races: [], delay: 3)
-    let vm = RaceViewModel(raceService: mockService)
+    let mockService: MockRaceService = MockRaceService(races: [], delay: 3)
+    let vm: RaceViewModel = RaceViewModel(raceService: mockService)
     vm.state = .loading
     return RaceListView(viewModel: vm)
 }
 
 #Preview("No Races") {
     /// Displays `RaceListView` when no races are available.
-    let mockService = MockRaceService(races: [])
-    let vm = RaceViewModel(raceService: mockService)
+    let mockService: MockRaceService = MockRaceService(races: [])
+    let vm: RaceViewModel = RaceViewModel(raceService: mockService)
     return RaceListView(viewModel: vm)
 }
 
 #Preview("With Sample Races") {
     /// Displays `RaceListView` populated with sample race data.
-    let sampleHorse = Race(
+    let sampleHorse: Race = Race(
         id: "horse1",
         meetingName: "Horse Meeting",
         raceNumber: 1,
@@ -93,7 +93,7 @@ struct RaceListView: View {
         categoryId: RaceCategory.horse.rawValue
     )
 
-    let sampleGreyhound = Race(
+    let sampleGreyhound: Race = Race(
         id: "greyhound1",
         meetingName: "Greyhound Meeting",
         raceNumber: 2,
@@ -101,7 +101,7 @@ struct RaceListView: View {
         categoryId: RaceCategory.greyhound.rawValue
     )
 
-    let sampleHarness = Race(
+    let sampleHarness: Race = Race(
         id: "harness1",
         meetingName: "Harness Meeting",
         raceNumber: 4,
@@ -109,7 +109,6 @@ struct RaceListView: View {
         categoryId: RaceCategory.harness.rawValue
     )
 
-    // Mix five races from different categories.
     let sampleRaces: [Race] = [
         sampleHorse,
         sampleGreyhound,
@@ -118,8 +117,8 @@ struct RaceListView: View {
         sampleHarness
     ]
 
-    let mockService = MockRaceService(races: sampleRaces)
-    let vm = RaceViewModel(raceService: mockService)
+    let mockService: MockRaceService = MockRaceService(races: sampleRaces)
+    let vm: RaceViewModel = RaceViewModel(raceService: mockService)
     return RaceListView(viewModel: vm)
 }
 #endif

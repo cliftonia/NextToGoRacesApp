@@ -69,13 +69,13 @@ struct Race: Identifiable, Decodable, Sendable {
     /// - Parameter decoder: The `Decoder` used to parse JSON data.
     /// - Throws: A `DecodingError` if required keys are missing or if decoding fails.
     init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(String.self, forKey: .id)
         meetingName = try container.decode(String.self, forKey: .meetingName)
         raceNumber = try container.decode(Int.self, forKey: .raceNumber)
         categoryId = try container.decode(String.self, forKey: .categoryId)
 
-        let startContainer = try container.decode(AdvertisedStart.self, forKey: .advertisedStart)
+        let startContainer: AdvertisedStart = try container.decode(AdvertisedStart.self, forKey: .advertisedStart)
         advertisedStart = Date(timeIntervalSince1970: Double(startContainer.seconds))
     }
 
@@ -102,10 +102,10 @@ struct Race: Identifiable, Decodable, Sendable {
     /// - Returns: A string in `MM:SS` format if the race has not yet started,
     ///   or `"Started"` if the race is already underway.
     func countdown(from currentDate: Date) -> String {
-        let interval = Int(advertisedStart.timeIntervalSince(currentDate))
+        let interval: Int = Int(advertisedStart.timeIntervalSince(currentDate))
         guard interval > 0 else { return "Started" }
-        let minutes = interval / 60
-        let seconds = interval % 60
+        let minutes: Int = interval / 60
+        let seconds: Int = interval % 60
         return String(format: "%02d:%02d", minutes, seconds)
     }
 }

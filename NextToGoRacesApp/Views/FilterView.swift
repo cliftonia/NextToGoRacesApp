@@ -27,7 +27,7 @@ struct FilterView: View {
     @Binding var selectedFilters: Set<RaceCategory>
     
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: .NextToGoRacesSpacing.smallSpacing) {
             ForEach(RaceCategory.allCases, id: \.self) { category in
                 Button {
                     withAnimation(.spring(response: 0.3)) {
@@ -38,7 +38,7 @@ struct FilterView: View {
                         }
                     }
                 } label: {
-                    VStack(alignment: .center, spacing: 4) {
+                    VStack(alignment: .center, spacing: .NextToGoRacesSpacing.tightRowSpacing) {
                         Image(systemName: category.sfSymbol)
                             .imageScale(.large)
                             .font(.system(size: 24, weight: .medium))
@@ -50,9 +50,8 @@ struct FilterView: View {
                             .fontWeight(.medium)
                             .foregroundColor(selectedFilters.contains(category) ? .blue : .primary)
                     }
-                    .frame(minWidth: 80, minHeight: 80)  // Added minimum height
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 8)
+                    .frame(minWidth: 80, minHeight: 80)
+                    .padding(.NextToGoRacesSpacing.defaultSpacing)
                     .background(
                         RoundedRectangle(cornerRadius: 12)
                             .fill(Color.gray.opacity(0.1))
@@ -63,6 +62,7 @@ struct FilterView: View {
                     )
                 }
                 .accessibilityLabel("\(category.displayName) filter")
+                .accessibilityHint("Double tap to toggle this filter")
             }
         }
         .padding()

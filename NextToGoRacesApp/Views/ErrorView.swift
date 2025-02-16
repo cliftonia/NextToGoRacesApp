@@ -19,7 +19,7 @@ struct ErrorView: View {
     let error: RaceViewModelError
     
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: .NextToGoRacesSpacing.defaultSpacing) {
             Image(systemName: "exclamationmark.triangle")
                 .font(.largeTitle)
                 .foregroundColor(.red)

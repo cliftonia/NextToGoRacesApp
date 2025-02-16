@@ -24,13 +24,44 @@ struct RaceRowView: View {
         }
         .padding()
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(race.meetingName) Race \(race.raceNumber)")
+        .accessibilityLabel(accessibilityRaceLabel)
         .accessibilityValue(countdownAccessibilityLabel)
+        .accessibilityRemoveTraits(.isHeader)
     }
     
+    /// A computed property that provides an accessibility-friendly race label.
+    ///
+    /// - Returns: A string describing the race category, meeting name, and race number.
+    private var accessibilityRaceLabel: String {
+        let categoryName: String = RaceCategory(rawValue: race.categoryId)?.displayName ?? "Race"
+        return "\(categoryName) Race at \(race.meetingName), Race \(race.raceNumber)"
+    }
+    
+    /// A computed property that provides an accessibility-friendly countdown label for the race.
+    ///
+    /// This function calculates the time remaining until the race starts and returns a properly formatted
+    /// string, ensuring VoiceOver users receive clear and accurate information.
+    ///
+    /// - If the race has already started, it announces: `"Race has started"`
+    /// - If the countdown is less than a minute, it announces only seconds: `"Time remaining until start: X seconds"`
+    /// - If there are no seconds left, it announces only minutes: `"Time remaining until start: X minutes"`
+    /// - If both minutes and seconds exist, it announces both: `"Time remaining until start: X minutes and Y seconds"`
     private var countdownAccessibilityLabel: String {
-        let countdown = race.countdown(from: currentDate)
-        return "Starting in \(countdown)"
+        let components: DateComponents = Calendar.current.dateComponents([.minute, .second], from: currentDate, to: race.advertisedStart)
+        let minutes: Int = components.minute ?? 0
+        let seconds: Int = components.second ?? 0
+        
+        if minutes < 0 || seconds < 0 {
+            return "Race has started"
+        }
+        
+        if minutes == 0 && seconds > 0 {
+            return "Time remaining until start: \(seconds) second\(seconds == 1 ? "" : "s")"
+        } else if seconds == 0 {
+            return "Time remaining until start: \(minutes) minute\(minutes == 1 ? "" : "s")"
+        } else {
+            return "Time remaining until start: \(minutes) minute\(minutes == 1 ? "" : "s") and \(seconds) second\(seconds == 1 ? "" : "s")"
+        }
     }
 }
 
@@ -38,7 +69,7 @@ struct RaceRowView: View {
 // MARK: - Previews
 
 #Preview {
-    let dummyRace = Race(
+    let dummyRace: Race = Race(
         id: "dummy",
         meetingName: "Dummy Meeting",
         raceNumber: 1,

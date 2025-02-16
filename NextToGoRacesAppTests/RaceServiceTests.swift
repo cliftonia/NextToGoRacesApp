@@ -79,6 +79,7 @@ struct RaceServiceTests {
         let data = jsonString.data(using: .utf8)!
         let decoder = JSONDecoder()
         let raceResponse = try decoder.decode(RaceResponse.self, from: data)
+        
         // Simulate ordering: the first race should be "2" and the second "1".
         let orderedRaces = raceResponse.data.nextToGoIds.compactMap { raceResponse.data.raceSummaries[$0] }
         #expect(orderedRaces.first?.id == "2")

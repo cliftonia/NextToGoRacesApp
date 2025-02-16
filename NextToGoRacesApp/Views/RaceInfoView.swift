@@ -14,7 +14,7 @@ import SwiftUI
 ///   - race: A `Race` object containing the information to be displayed.
 struct RaceInfoView: View {
     let race: Race
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(race.meetingName)
@@ -36,7 +36,7 @@ struct RaceInfoView: View {
 
 #Preview {
     // Create a sample Race for preview purposes.
-    let sampleRace = Race(
+    let sampleRace: Race = Race(
         id: "sampleRace",
         meetingName: "Sample Meeting",
         raceNumber: 3,

@@ -103,7 +103,7 @@ final class RaceViewModel: ObservableObject {
     ///   - Updates `state` to `.error(unknown)` for unexpected errors.
     func fetchRaces() async {
         do {
-            let fetchedRaces = try await raceService.fetchRaces()
+            let fetchedRaces: [Race] = try await raceService.fetchRaces()
 
             if case .loaded(let existingRaces) = state, existingRaces == fetchedRaces {
                 return
@@ -153,11 +153,11 @@ final class RaceViewModel: ObservableObject {
     ///
     /// - Returns: An array of `DisplayableRace` objects ready for UI display.
     var displayedRaces: [DisplayableRace] {
-        let validRaces = filteredRaces.enumerated().map { (index, race) in
+        let validRaces: [DisplayableRace] = filteredRaces.enumerated().map { (index, race) in
             DisplayableRace(race: race, index: index)
         }
-        let placeholdersNeeded = max(0, Self.raceLimit - validRaces.count)
-        let placeholders = (0..<placeholdersNeeded).map { DisplayableRace.placeholder(index: $0) }
+        let placeholdersNeeded: Int = max(0, Self.raceLimit - validRaces.count)
+        let placeholders: [DisplayableRace] = (0..<placeholdersNeeded).map { DisplayableRace.placeholder(index: $0) }
         return validRaces + placeholders
     }
 }

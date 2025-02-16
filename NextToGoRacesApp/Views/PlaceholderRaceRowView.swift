@@ -25,6 +25,8 @@ struct PlaceholderRaceRowView: View {
         }
         .padding()
         .foregroundColor(.gray)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("No race available. Awaiting next race.")
     }
 }
 

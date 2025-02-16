@@ -45,9 +45,9 @@ enum RaceCategory: String, CaseIterable {
         case .horse:
             return "figure.equestrian.sports"
         case .harness:
-            return "figure.equestrian.sports.circle"  // Could also use "figure.run" or "figure.outdoor.cycle"
+            return "figure.equestrian.sports.circle"
         case .greyhound:
-            return "dog"  // Could also use "dog" but "hare" better represents racing
+            return "dog"
         }
     }
 }

@@ -12,16 +12,19 @@ import SwiftUI
 /// The view shows a gray exclamation mark icon and a headline text stating "No races available."
 struct NoRacesView: View {
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: .NextToGoRacesSpacing.defaultSpacing) {
             Image(systemName: "exclamationmark.triangle")
                 .font(.largeTitle)
                 .foregroundColor(.gray)
                 .accessibilityLabel("No races available")
+                .accessibilityHidden(true)
             Text("No races available")
                 .font(.headline)
                 .foregroundColor(.gray)
+                .accessibilityLabel("No races available. Check back later.")
         }
         .padding()
+        .accessibilityElement(children: .combine)
     }
 }
 

@@ -26,14 +26,14 @@ protocol RaceServiceProtocol: Sendable {
 actor RaceService: RaceServiceProtocol {
     private let urlSession: URLSession
     private let endpoint = "https://api.neds.com.au/rest/v1/racing/?method=nextraces&count=10"
-    
+
     /// Initializes a new instance of `RaceService`.
     ///
     /// - Parameter urlSession: The `URLSession` instance used for network calls. Defaults to `URLSession.shared`.
     init(urlSession: URLSession = .shared) {
         self.urlSession = urlSession
     }
-    
+
     /// Fetches the next races from the Next to Go races API.
     ///
     /// This method:
@@ -52,23 +52,23 @@ actor RaceService: RaceServiceProtocol {
         guard let url = URL(string: endpoint) else {
             throw RaceServiceError.invalidURL
         }
-        
-        let (data, response) = try await urlSession.data(from: url)
-        
+
+        let (data, response): (Data, URLResponse) = try await urlSession.data(from: url)
+
         guard let httpResponse = response as? HTTPURLResponse else {
             throw RaceServiceError.invalidResponse
         }
-        
+
         guard httpResponse.statusCode == 200 else {
             throw RaceServiceError.httpError(statusCode: httpResponse.statusCode)
         }
-        
-        let decoder = JSONDecoder()
-        let raceResponse = try decoder.decode(RaceResponse.self, from: data)
-        
+
+        let decoder: JSONDecoder = JSONDecoder()
+        let raceResponse: RaceResponse = try decoder.decode(RaceResponse.self, from: data)
+
         /// Extracts and orders races according to `next_to_go_ids`.
         /// Uses `compactMap` to filter out any IDs that do not have corresponding race data.
-        let orderedRaces = raceResponse.data.nextToGoIds.compactMap { id in
+        let orderedRaces: [Race] = raceResponse.data.nextToGoIds.compactMap { id in
             raceResponse.data.raceSummaries[id]
         }
         return orderedRaces
@@ -83,7 +83,7 @@ struct MockRaceService: RaceServiceProtocol {
     let races: [Race]
     let error: Error?
     let delay: TimeInterval
-    
+
     /// Initializes a mock race service.
     ///
     /// - Parameters:
@@ -95,7 +95,7 @@ struct MockRaceService: RaceServiceProtocol {
         self.error = error
         self.delay = delay
     }
-    
+
     /// Fetches races asynchronously with an optional delay.
     ///
     /// - Returns: A predefined list of races or throws an error if one is set.
@@ -103,7 +103,7 @@ struct MockRaceService: RaceServiceProtocol {
         if delay > 0 {
             try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
         }
-        if let error = error {
+        if let error: Error = error {
             throw error
         }
         return races
