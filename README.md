@@ -79,6 +79,9 @@ https://api.neds.com.au/rest/v1/racing/?method=nextraces&count=10
 - **Includes VoiceOver labels** for improved accessibility.
 - **Ensures tap targets** are large enough for easy interaction.
 
+## Accessibility Video
+https://github.com/user-attachments/assets/4d0fea86-d4c8-4fed-9171-9a09720503e7
+
 ## Future Improvements
 - Implement **caching** for better performance.
 - Add **UI animations** for smoother updates.
