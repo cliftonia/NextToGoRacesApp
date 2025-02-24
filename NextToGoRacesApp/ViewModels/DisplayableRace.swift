@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 /// A stable wrapper for displaying a race in the UI.
 ///
 /// This struct ensures that UI components can reliably track and display race updates,
